@@ -1,42 +1,70 @@
-//your variable declarations here
+//SpaceShip ship;
+SpaceShip ship = new SpaceShip(); 
+
 public void setup() 
 {
-  //your code here
   size(400, 400);
+  background(0);
 }
 public void draw() 
 {
-  //your code here
-  SpaceShip ship = new SpaceShip();
-  ship.accelerate();
-  ship.rotate();
-  ship.move();
+  //ship.accelerate();
+  //ship.rotate();
+  //ship.move();
   ship.show();
 
 }
 class SpaceShip extends Floater  
 {  
-
-  //your code here
   SpaceShip(){
     myCenterX = 200;
     myCenterY = 200;
     myColor = color(0, 0, 255);
-    //myDirectionX =
-    //myDirectionY =
-    myPointDirection =
-
+    myDirectionX = 0;
+    myDirectionY = 0;
+    myPointDirection = 0;
+    corners = 4;
+    xCorners = new int [corners];
+    yCorners = new int [corners];
+    xCorners[0] = -8;
+    yCorners[0] = -8;
+    xCorners[1] = 16;
+    yCorners[1] = 0;
+    xCorners[2] = -8;
+    yCorners[2] = 8;
+    xCorners[3] = -2;
+    yCorners[3] = 0;
   }
   public void setX(int x){myCenterX = x;} 
-  public int getX(){return myCenterX;}   
+  public int getX(){return (int) myCenterX;}   
   public void setY(int y){myCenterY = y;}   
-  public int getY(){return myCenterY;}   
+  public int getY(){return (int) myCenterY;}   
   public void setDirectionX(double x){myDirectionX = x;}   
   public double getDirectionX(){return myDirectionX;}   
   public void setDirectionY(double y){myDirectionY = y;}   
   public double getDirectionY(){return myDirectionY;}   
   public void setPointDirection(int degrees){myPointDirection = degrees;}   
   public double getPointDirection(){return myPointDirection;} 
+
+  public void keyPressed()
+  {
+    if(key == '1') //rotate left
+    {
+      ship.setPointDirection(5);
+    }
+    if(key == '2') //rotate right
+    {
+      ship.setPointDirection(-5);
+    }
+    if(key == '5') //accelerate
+    {
+      //
+    }
+    if(key == '0') //hyperspace
+    {
+      ship.setDirectionX(0);
+    }
+  }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
