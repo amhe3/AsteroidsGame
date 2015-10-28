@@ -1,5 +1,7 @@
-//SpaceShip ship;
+
 SpaceShip ship = new SpaceShip(); 
+//int aNum, rNum;
+int randomNum = (int) (Math.random()*361);
 
 public void setup() 
 {
@@ -12,10 +14,35 @@ public void draw()
   //ship.rotate();
   //ship.move();
   ship.show();
-
 }
+public void keyTyped()
+  {
+    if(key == 'a') //rotate left
+    {
+      //ship.setPointDirection(5);
+      ship.rotate(5);
+    }
+    if(key == 'd') //rotate right
+    {
+      //ship.setPointDirection(-5);
+      ship.rotate(-5);
+      //background(0);
+    }
+    if(key == 'w') //accelerate
+    {
+      ship.move();
+    }
+    if(key == 'h') //hyperspace
+    {
+      ship.setDirectionX(randomNum);
+      ship.setX(randomNum);
+      ship.setY(randomNum);
+    }
+  }
+
 class SpaceShip extends Floater  
 {  
+  //int randomNum;
   SpaceShip(){
     myCenterX = 200;
     myCenterY = 200;
@@ -34,6 +61,7 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
+    //randomNum = (int) (Math.random()*361);
   }
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
@@ -45,26 +73,6 @@ class SpaceShip extends Floater
   public double getDirectionY(){return myDirectionY;}   
   public void setPointDirection(int degrees){myPointDirection = degrees;}   
   public double getPointDirection(){return myPointDirection;} 
-
-  public void keyPressed()
-  {
-    if(key == '1') //rotate left
-    {
-      ship.setPointDirection(5);
-    }
-    if(key == '2') //rotate right
-    {
-      ship.setPointDirection(-5);
-    }
-    if(key == '5') //accelerate
-    {
-      //
-    }
-    if(key == '0') //hyperspace
-    {
-      ship.setDirectionX(0);
-    }
-  }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
