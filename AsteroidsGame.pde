@@ -1,7 +1,7 @@
 
 SpaceShip ship = new SpaceShip(); 
+Shadow shadow = new Shadow();
 //int aNum, rNum;
-int randomNum = (int) (Math.random()*361);
 
 public void setup() 
 {
@@ -12,33 +12,50 @@ public void draw()
 {
   //ship.accelerate();
   //ship.rotate();
-  //ship.move();
+  //shadow.move();
+  //shadow.show();
+  ship.move();
   ship.show();
 }
 public void keyTyped()
   {
+    noStroke();
+    fill(0);
+    ellipse(ship.getX(), ship.getY(), 35, 35); //for rotate
     if(key == 'a') //rotate left
     {
-      //ship.setPointDirection(5);
-      ship.rotate(5);
+      ship.rotate(-3);
     }
     if(key == 'd') //rotate right
     {
-      //ship.setPointDirection(-5);
-      ship.rotate(-5);
-      //background(0);
+      ship.rotate(3);
     }
     if(key == 'w') //accelerate
     {
-      ship.move();
+      shadow.accelerate(3);
+      ship.accelerate(3);
     }
-    if(key == 'h') //hyperspace
+    if(key == 's') //hyperspace
     {
-      ship.setDirectionX(randomNum);
-      ship.setX(randomNum);
-      ship.setY(randomNum);
+      int randomNum = (int) (Math.random()*361)-180;
+      int randomNumX = (int) (Math.random()*401);
+      int randomNumY = (int) (Math.random()*401);
+      ship.rotate(randomNum);
+      ship.setX(randomNumX);
+      ship.setY(randomNumY);
     }
+
   }
+
+  class Shadow extends SpaceShip
+  {
+    Shadow()
+    {
+      myCenterX = 196;
+      myCenterY = 200;
+      myColor = color(0, 0, 0);
+    }
+}
 
 class SpaceShip extends Floater  
 {  
