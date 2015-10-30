@@ -1,6 +1,7 @@
 
 SpaceShip ship = new SpaceShip(); 
 Shadow shadow = new Shadow();
+boolean accel = false; 
 //int aNum, rNum;
 
 public void setup() 
@@ -21,7 +22,7 @@ public void keyTyped()
   {
     noStroke();
     fill(0);
-    ellipse(ship.getX(), ship.getY(), 35, 35); //for rotate
+    ellipse(ship.getX(), ship.getY(), 36, 36); //for rotate
     if(key == 'a') //rotate left
     {
       ship.rotate(-3);
@@ -32,8 +33,7 @@ public void keyTyped()
     }
     if(key == 'w') //accelerate
     {
-      shadow.accelerate(3);
-      ship.accelerate(3);
+      public accel = true;
     }
     if(key == 's') //hyperspace
     {
@@ -43,7 +43,13 @@ public void keyTyped()
       ship.rotate(randomNum);
       ship.setX(randomNumX);
       ship.setY(randomNumY);
+      public accel = false;
     }
+    if(accel == false)
+    {
+      ship.accelerate(-3);
+    } else 
+      ship.accelerate(3);
 
   }
 
