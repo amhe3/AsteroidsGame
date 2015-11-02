@@ -1,8 +1,5 @@
 
 SpaceShip ship = new SpaceShip(); 
-Shadow shadow = new Shadow();
-boolean accel = false; 
-//int aNum, rNum;
 
 public void setup() 
 {
@@ -11,62 +8,42 @@ public void setup()
 }
 public void draw() 
 {
-  //ship.accelerate();
-  //ship.rotate();
-  //shadow.move();
-  //shadow.show();
-  ship.move();
   ship.show();
+  ship.move();
+  
 }
 public void keyTyped()
+{
+  background(0);
+  if(key == 'a') //rotate left
   {
-    noStroke();
-    fill(0);
-    ellipse(ship.getX(), ship.getY(), 36, 36); //for rotate
-    if(key == 'a') //rotate left
-    {
-      ship.rotate(-3);
-    }
-    if(key == 'd') //rotate right
-    {
-      ship.rotate(3);
-    }
-    if(key == 'w') //accelerate
-    {
-      public accel = true;
-    }
-    if(key == 's') //hyperspace
-    {
-      int randomNum = (int) (Math.random()*361)-180;
-      int randomNumX = (int) (Math.random()*401);
-      int randomNumY = (int) (Math.random()*401);
-      ship.rotate(randomNum);
-      ship.setX(randomNumX);
-      ship.setY(randomNumY);
-      public accel = false;
-    }
-    if(accel == false)
-    {
-      ship.accelerate(-3);
-    } else 
-      ship.accelerate(3);
-
+    ship.rotate(-3);
+    ship.show();
   }
-
-  class Shadow extends SpaceShip
+  if(key == 'd') //rotate right
   {
-    Shadow()
-    {
-      myCenterX = 196;
-      myCenterY = 200;
-      myColor = color(0, 0, 0);
-    }
+    ship.rotate(3);
+    ship.show();
+  }
+  if(key == 'w') //accelerate
+  {
+    ship.accelerate(3);
+    ship.show();
+  }
+  if(key == 's') //hyperspace
+  {
+    int randomNum = (int) (Math.random()*361)-180;
+    int randomNumX = (int) (Math.random()*401);
+    int randomNumY = (int) (Math.random()*401);
+    ship.rotate(randomNum);
+    ship.setX(randomNumX);
+    ship.setY(randomNumY);
+  }
 }
 
 class SpaceShip extends Floater  
 {  
-  //int randomNum;
-  SpaceShip(){
+  public SpaceShip(){
     myCenterX = 200;
     myCenterY = 200;
     myColor = color(0, 0, 255);
@@ -84,7 +61,6 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
-    //randomNum = (int) (Math.random()*361);
   }
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
