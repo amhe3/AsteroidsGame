@@ -1,10 +1,21 @@
+int numStars = (int) (Math.random()*100)+100;
 
+Star[] stars = new Star[numStars];
 SpaceShip ship = new SpaceShip(); 
 
 public void setup() 
 {
   size(400, 400);
   background(0);
+  for(int i = 0; i < stars.length; i++)
+  {
+    stars[i] = new Star();
+  }
+  background(0);
+  for(int i = 0; i < stars.length; i++)
+  {
+    stars[i].show();
+  }
 }
 public void draw() 
 {
@@ -15,14 +26,18 @@ public void draw()
 public void keyTyped()
 {
   background(0);
+  for(int i = 0; i < stars.length; i++)
+  {
+    stars[i].show();
+  }
   if(key == 'a') //rotate left
   {
-    ship.rotate(-3);
+    ship.rotate(-5);
     ship.show();
   }
   if(key == 'd') //rotate right
   {
-    ship.rotate(3);
+    ship.rotate(5);
     ship.show();
   }
   if(key == 'w') //accelerate
@@ -32,18 +47,40 @@ public void keyTyped()
   }
   if(key == 's') //hyperspace
   {
-    int randomNum = (int) (Math.random()*361)-180;
-    int randomNumX = (int) (Math.random()*401);
-    int randomNumY = (int) (Math.random()*401);
-    ship.rotate(randomNum);
-    ship.setX(randomNumX);
-    ship.setY(randomNumY);
+    ship.rotate((int) (Math.random()*361)-180);
+    ship.setX((int) (Math.random()*401));
+    ship.setY((int) (Math.random()*401));
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
   }
+}
+
+class Star
+{
+  private double myX, myY;
+  private int size, colors1, colors2, colors3;
+  public Star()
+  {
+    myX = Math.random()*400;
+    myY = Math.random()*400;
+    size = (int) (Math.random()*6)+1;
+    colors1 = (int)(Math.random()*225);
+    colors2 = (int)(Math.random()*225);
+    colors3 = (int)(Math.random()*225);
+
+  }
+  public void show()
+  {
+    noStroke();
+    fill(colors1, colors2, colors3);
+    ellipse((float)myX, (float)myY, (float)size, (float)size);
+  } 
 }
 
 class SpaceShip extends Floater  
 {  
-  public SpaceShip(){
+  public SpaceShip()
+  {
     myCenterX = 200;
     myCenterY = 200;
     myColor = color(0, 0, 255);
