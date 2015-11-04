@@ -1,4 +1,5 @@
 int numStars = (int) (Math.random()*100)+100;
+boolean twinkle = false;
 
 Star[] stars = new Star[numStars];
 SpaceShip ship = new SpaceShip(); 
@@ -11,38 +12,38 @@ public void setup()
   {
     stars[i] = new Star();
   }
+}
+public void draw() 
+{
   background(0);
   for(int i = 0; i < stars.length; i++)
   {
     stars[i].show();
   }
-}
-public void draw() 
-{
   ship.show();
   ship.move();
   
 }
 public void keyTyped()
 {
-  background(0);
-  for(int i = 0; i < stars.length; i++)
-  {
-    stars[i].show();
-  }
   if(key == 'a') //rotate left
   {
-    ship.rotate(-5);
+    ship.rotate(-7);
     ship.show();
   }
   if(key == 'd') //rotate right
   {
-    ship.rotate(5);
+    ship.rotate(7);
     ship.show();
   }
   if(key == 'w') //accelerate
   {
-    ship.accelerate(3);
+    ship.accelerate(1);
+    ship.show();
+  }
+  if(key == ' ')
+  {
+    ship.accelerate(-1);
     ship.show();
   }
   if(key == 's') //hyperspace
@@ -53,12 +54,20 @@ public void keyTyped()
     ship.setDirectionX(0);
     ship.setDirectionY(0);
   }
+  if(key == 't'&& twinkle == false)
+  {
+    twinkle = true;
+  } else
+  if(key == 't' && twinkle == true)
+  {
+    twinkle = false;
+  }
 }
 
 class Star
 {
   private double myX, myY;
-  private int size, colors1, colors2, colors3;
+  private int size, colors1, colors2, colors3, myFillColor;
   public Star()
   {
     myX = Math.random()*400;
@@ -67,14 +76,20 @@ class Star
     colors1 = (int)(Math.random()*225);
     colors2 = (int)(Math.random()*225);
     colors3 = (int)(Math.random()*225);
-
+    myFillColor = color(colors1, colors2, colors3); 
   }
   public void show()
   {
     noStroke();
-    fill(colors1, colors2, colors3);
+    fill(myFillColor);
+    if(twinkle == true)
+    {
+      myFillColor = color((int)(Math.random()*225), (int)(Math.random()*225), (int)(Math.random()*225));
+    } else
+      myFillColor = color(colors1, colors2, colors3); 
     ellipse((float)myX, (float)myY, (float)size, (float)size);
   } 
+  public void setFillColor(int num){myFillColor = num;}
 }
 
 class SpaceShip extends Floater  
@@ -83,7 +98,7 @@ class SpaceShip extends Floater
   {
     myCenterX = 200;
     myCenterY = 200;
-    myColor = color(0, 0, 255);
+    myColor = color(255, 255, 255);
     myDirectionX = 0;
     myDirectionY = 0;
     myPointDirection = 0;
@@ -108,8 +123,9 @@ class SpaceShip extends Floater
   public void setDirectionY(double y){myDirectionY = y;}   
   public double getDirectionY(){return myDirectionY;}   
   public void setPointDirection(int degrees){myPointDirection = degrees;}   
-  public double getPointDirection(){return myPointDirection;} 
+  public double getPointDirection(){return myPointDirection;}
 }
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
