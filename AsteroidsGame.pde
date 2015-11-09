@@ -25,14 +25,13 @@ public void draw()
   {
     stars[i].show();
   }
+  ship.show();
+  ship.move();
   for(int i = 0; i < rocks.length; i++)
   {
     rocks[i].show();
-    rocks[i].rotate();
     rocks[i].move();
   }
-  ship.show();
-  ship.move();
 }
 public void keyTyped()
 {
@@ -143,53 +142,50 @@ class Asteroids extends Floater
   {
     myCenterX = (int) (Math.random()*400);
     myCenterY = (int) (Math.random()*400);
-    myColor = color(205, 201, 201);
-    myDirectionX = 2; //speed of fall & angle
-    myDirectionY = 1; //speed of fall & angle
+    myColor = color(160, 160, 160);
+    myDirectionX = Math.random()*10-5; //movement
+    myDirectionY = Math.random()*10-5; //movement
     myPointDirection = 0;
     corners = 15;
     xCorners = new int [corners];
     yCorners = new int [corners];
-    xCorners[0] = -7;
+    xCorners[0] = -14;
     yCorners[0] = 0;
-    xCorners[1] = -7;
-    yCorners[1] = 2;
-    xCorners[2] = -6;
-    yCorners[2] = 3;
-    xCorners[3] = -5;
-    yCorners[3] = 3;
-    xCorners[4] = -2;
-    yCorners[4] = 4;
-    xCorners[5] = -1;
-    yCorners[5] = 5;
-    xCorners[6] = 1;
-    yCorners[6] = 5;
-    xCorners[7] = 2;
-    yCorners[7] = 4;
-    xCorners[8] = 5;
-    yCorners[8] = 1;
-    xCorners[9] = 6;
-    yCorners[9] = -2;
-    xCorners[10] = 4;
-    yCorners[10] = -3;
-    xCorners[11] = 2;
-    yCorners[11] = -6;
-    xCorners[12] = 1;
-    yCorners[12] = -5;
-    xCorners[13] = -4;
-    yCorners[13] = -5;
-    xCorners[14] = -5;
-    yCorners[14] = -2;
-
-    rotateSpeed = (int) (Math.random()*10)-5;
-  }
-  public void rotate()
-  {
-    myPointDirection += rotateSpeed; 
+    xCorners[1] = -14;
+    yCorners[1] = 4;
+    xCorners[2] = -12;
+    yCorners[2] = 6;
+    xCorners[3] = -10;
+    yCorners[3] = 6;
+    xCorners[4] = -4;
+    yCorners[4] = 8;
+    xCorners[5] = -2;
+    yCorners[5] = 10;
+    xCorners[6] = 2;
+    yCorners[6] = 10;
+    xCorners[7] = 4;
+    yCorners[7] = 8;
+    xCorners[8] = 10;
+    yCorners[8] = 2;
+    xCorners[9] = 12;
+    yCorners[9] = -4;
+    xCorners[10] = 8;
+    yCorners[10] = -6;
+    xCorners[11] = 4;
+    yCorners[11] = -12;
+    xCorners[12] = 2;
+    yCorners[12] = -10;
+    xCorners[13] = -8;
+    yCorners[13] = -10;
+    xCorners[14] = -10;
+    yCorners[14] = -4;
+    rotateSpeed = (int) (Math.random()*16)-8;
   }
 
-  public void move ()   //move the floater in the current direction of travel
+  public void move ()
   {      
+    rotate(rotateSpeed);
+    //super.move();
     //change the x and y coordinates by myDirectionX and myDirectionY       
     myCenterX += myDirectionX;    
     myCenterY += myDirectionY;     
