@@ -1,5 +1,6 @@
 int numStars = (int) (Math.random()*100)+100;
 boolean twinkle = false;
+int screenSize = 500;
 
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
@@ -7,7 +8,7 @@ Asteroids[] rocks = new Asteroids[5];
 
 public void setup() 
 {
-  size(400, 400);
+  size(screenSize, screenSize);
   background(0);
   for(int i = 0; i < stars.length; i++)
   {
@@ -50,16 +51,16 @@ public void keyTyped()
     ship.accelerate(1);
     ship.show();
   }
-  if(key == ' ')
+  if(key == 's') //go backwards
   {
     ship.accelerate(-1);
     ship.show();
   }
-  if(key == 's') //hyperspace
+  if(key == ' ') //hyperspace
   {
     ship.rotate((int) (Math.random()*361)-180); //point direction
-    ship.setX((int) (Math.random()*401)); //position X
-    ship.setY((int) (Math.random()*401)); //position Y
+    ship.setX((int) (Math.random()*(screenSize+1))); //position X
+    ship.setY((int) (Math.random()*(screenSize+1))); //position Y
     ship.setDirectionX(0); //stop moving
     ship.setDirectionY(0); //stop moving
   }
@@ -79,8 +80,8 @@ class Star
   private int size, colors1, colors2, colors3, myFillColor;
   public Star()
   {
-    myX = Math.random()*400;
-    myY = Math.random()*400;
+    myX = Math.random()*screenSize;
+    myY = Math.random()*screenSize;
     size = (int) (Math.random()*6)+1;
     colors1 = (int)(Math.random()*225);
     colors2 = (int)(Math.random()*225);
@@ -140,8 +141,8 @@ class Asteroids extends Floater
   private int rotateSpeed;
   public Asteroids()
   {
-    myCenterX = (int) (Math.random()*400);
-    myCenterY = (int) (Math.random()*400);
+    myCenterX = (int) (Math.random()*screenSize);
+    myCenterY = (int) (Math.random()*screenSize);
     myColor = color(160, 160, 160);
     myDirectionX = Math.random()*10-5; //movement
     myDirectionY = Math.random()*10-5; //movement
@@ -179,35 +180,14 @@ class Asteroids extends Floater
     yCorners[13] = -10;
     xCorners[14] = -10;
     yCorners[14] = -4;
-    rotateSpeed = (int) (Math.random()*16)-8;
+    rotateSpeed = (int) (Math.random()*14)-7;
   }
 
   public void move ()
   {      
     rotate(rotateSpeed);
-    //super.move();
-    //change the x and y coordinates by myDirectionX and myDirectionY       
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;     
-
-    //wrap around screen    
-    if(myCenterX >width)
-    {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX<0)
-    {     
-      myCenterX = width;    
-    }    
-    if(myCenterY >height)
-    {    
-      myCenterY = 0;    
-    }   
-    else if (myCenterY < 0)
-    {     
-      myCenterY = height;    
-    }   
-  }   
+    super.move();
+  }  
 
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
