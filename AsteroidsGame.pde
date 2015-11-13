@@ -6,6 +6,9 @@ SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
 Asteroids[] rocks = new Asteroids[5];
 
+ArrayList <Asteroids> astroBelt;
+astroBelt = new ArrayList <Asteroids>();
+
 public void setup() 
 {
   size(screenSize, screenSize);
@@ -123,6 +126,8 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
+  }
+
   }
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
