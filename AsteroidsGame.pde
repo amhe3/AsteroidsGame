@@ -6,8 +6,9 @@ SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
 Asteroids[] rocks = new Asteroids[5];
 
-ArrayList <Asteroids> astroBelt;
+/*ArrayList <Asteroids> astroBelt;
 astroBelt = new ArrayList <Asteroids>();
+astroBelt.add(new Asteroids);*/
 
 public void setup() 
 {
@@ -21,6 +22,11 @@ public void setup()
   {
     rocks[i] = new Asteroids();
   }
+  /*for(int i = 0; i < astroBelt.size; i++)
+  {
+    Asteroids belt = astroBelt.get(i);
+    belt.show();
+  }*/
 }
 public void draw() 
 {
