@@ -115,8 +115,8 @@ class SpaceShip extends Floater
 {  
   public SpaceShip()
   {
-    myCenterX = 200;
-    myCenterY = 200;
+    myCenterX = screenSize/2;
+    myCenterY = screenSize/2;
     myColor = color(255, 255, 255);
     myDirectionX = 0;
     myDirectionY = 0;
@@ -132,6 +132,15 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
+  }
+  public void show()
+  {
+    noFill();
+    stroke(0, 255, 0);
+    strokeWeight(5);
+    ellipse((float)myCenterX, (float)myCenterY, 10, 10);
+    strokeWeight(1);
+    super.show();
   }
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
