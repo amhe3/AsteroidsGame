@@ -1,14 +1,12 @@
 int numStars = (int) (Math.random()*100)+100;
 boolean twinkle = false;
 int screenSize = 500;
+int rockNum = 5; //start with XX num of asteroids
 
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
-Asteroids[] rocks = new Asteroids[5];
-
-/*ArrayList <Asteroids> astroBelt;
-astroBelt = new ArrayList <Asteroids>();
-astroBelt.add(new Asteroids);*/
+//Asteroids[] rocks = new Asteroids[5]; //array
+ArrayList <Asteroids> astroBelt = new ArrayList <Asteroids>(); //arrayList
 
 public void setup() 
 {
@@ -18,15 +16,14 @@ public void setup()
   {
     stars[i] = new Star();
   }
-  for(int i = 0; i < rocks.length; i++)
+  /*for(int i = 0; i < rocks.length; i++) //for asteroids array
   {
     rocks[i] = new Asteroids();
-  }
-  /*for(int i = 0; i < astroBelt.size; i++)
-  {
-    Asteroids belt = astroBelt.get(i);
-    belt.show();
   }*/
+  for(int i = 0; i < rockNum; i++) //for asteroids arrayList
+  {
+    astroBelt.add(new Asteroids());
+  }
 }
 public void draw() 
 {
@@ -37,10 +34,20 @@ public void draw()
   }
   ship.show();
   ship.move();
-  for(int i = 0; i < rocks.length; i++)
+  /*for(int i = 0; i < rocks.length; i++) //for asteroids array
   {
     rocks[i].show();
     rocks[i].move();
+  }*/
+  for(int i = 0; i < astroBelt.size(); i++) //for asteroids arrayList
+  {
+    Asteroids belt = astroBelt.get(i);
+    belt.show();
+    belt.move();
+  }
+  if(dist(astroBelt.get(), ship.getX(), ship.getY()) == 20) 
+  {//how do we go into the arrayList and get the index num,then get the rock's getX and getY
+    astroBelt.remove(i);
   }
 }
 public void keyTyped()
@@ -138,7 +145,7 @@ class SpaceShip extends Floater
     noFill();
     stroke(0, 255, 0);
     strokeWeight(5);
-    ellipse((float)myCenterX, (float)myCenterY, 10, 10);
+    //ellipse((float)myCenterX, (float)myCenterY, 10, 10); //shield
     strokeWeight(1);
     super.show();
   }
