@@ -45,10 +45,13 @@ public void draw()
     belt.show();
     belt.move();
   }
-  if(dist(astroBelt.get(), ship.getX(), ship.getY()) == 20) 
-  {//how do we go into the arrayList and get the index num,then get the rock's getX and getY
-    astroBelt.remove(i);
-  }
+  //for(int i = 0; i < astroBelt.size(); i++)
+  //{
+    if(dist(astroBelt.get(3).getX(), astroBelt.get(3).getY(), ship.getX(), ship.getY()) == 20) 
+    {
+      astroBelt.remove(3);
+    }
+  //}
 }
 public void keyTyped()
 {
@@ -140,15 +143,7 @@ class SpaceShip extends Floater
     xCorners[3] = -2;
     yCorners[3] = 0;
   }
-  public void show()
-  {
-    noFill();
-    stroke(0, 255, 0);
-    strokeWeight(5);
-    //ellipse((float)myCenterX, (float)myCenterY, 10, 10); //shield
-    strokeWeight(1);
-    super.show();
-  }
+
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
   public void setY(int y){myCenterY = y;}   
