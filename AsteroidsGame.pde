@@ -1,7 +1,7 @@
 int numStars = (int) (Math.random()*100)+100;
 boolean twinkle = false;
 int screenSize = 500;
-int rockNum = 5; //start with XX num of asteroids
+int rockNum = 1; //start with XX num of asteroids
 
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
@@ -47,9 +47,23 @@ public void draw()
   }
   //for(int i = 0; i < astroBelt.size(); i++)
   //{
-    if(dist(astroBelt.get(3).getX(), astroBelt.get(3).getY(), ship.getX(), ship.getY()) == 20) 
+    double newX, newY;
+    float d =dist(astroBelt.get(0).getX(), astroBelt.get(0).getY(), ship.getX(), ship.getY());
+    if((int)(Math.random()*1) == 0)
     {
-      astroBelt.remove(3);
+      newX = 0;
+      newY = Math.random()*screenSize;
+    } else
+    {
+      newX = Math.random()*screenSize;
+      newY = 0;
+    }
+    if(d < 20) 
+    {
+      astroBelt.remove(0);
+      astroBelt.get(0).setX(newX);
+      astroBelt.get(0).setY(newY);
+      astroBelt.add(new Asteroids());
     }
   //}
 }
