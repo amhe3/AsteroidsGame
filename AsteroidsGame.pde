@@ -1,12 +1,13 @@
 int numStars = (int) (Math.random()*100)+100;
 boolean twinkle = false;
 int screenSize = 500;
-int rockNum = 1; //start with XX num of asteroids
+int rockNum = 5; //start with XX num of asteroids
 
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
-//Asteroids[] rocks = new Asteroids[5]; //array
 ArrayList <Asteroids> astroBelt = new ArrayList <Asteroids>(); //arrayList
+
+Bullet bullet = new Bullet();
 
 public void setup() 
 {
@@ -16,10 +17,6 @@ public void setup()
   {
     stars[i] = new Star();
   }
-  /*for(int i = 0; i < rocks.length; i++) //for asteroids array
-  {
-    rocks[i] = new Asteroids();
-  }*/
   for(int i = 0; i < rockNum; i++) //for asteroids arrayList
   {
     astroBelt.add(new Asteroids());
@@ -34,22 +31,17 @@ public void draw()
   }
   ship.show();
   ship.move();
-  /*for(int i = 0; i < rocks.length; i++) //for asteroids array
-  {
-    rocks[i].show();
-    rocks[i].move();
-  }*/
   for(int i = 0; i < astroBelt.size(); i++) //for asteroids arrayList
   {
     Asteroids belt = astroBelt.get(i);
     belt.show();
     belt.move();
   }
-  //for(int i = 0; i < astroBelt.size(); i++)
-  //{
+  for(int i = 0; i < astroBelt.size(); i++) //remove asteroid
+  {
     double newX, newY;
-    float d =dist(astroBelt.get(0).getX(), astroBelt.get(0).getY(), ship.getX(), ship.getY());
-    if((int)(Math.random()*1) == 0)
+    float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY());
+    if((int)(Math.random()*1) == 0) //random coords for new asteroid
     {
       newX = 0;
       newY = Math.random()*screenSize;
@@ -60,12 +52,12 @@ public void draw()
     }
     if(d < 20) 
     {
-      astroBelt.remove(0);
-      astroBelt.get(0).setX(newX);
-      astroBelt.get(0).setY(newY);
-      astroBelt.add(new Asteroids());
+      astroBelt.get(i).setX((int)newX);
+      astroBelt.get(i).setY((int)newY);
+      //astroBelt.add(new Asteroids()); //add new asteroid as another is removed
+      astroBelt.remove(i);
     }
-  //}
+  }
 }
 public void keyTyped()
 {
@@ -233,6 +225,24 @@ class Asteroids extends Floater
   public double getDirectionY(){return myDirectionY;}   
   public void setPointDirection(int degrees){myPointDirection = degrees;}   
   public double getPointDirection(){return myPointDirection;}
+}
+
+class Bullet extends Floater
+{
+  public void Bullet(SpaceShip ship)
+  {
+    myCenterX = ship.getX();
+    myCenterY = ship.getY();
+    myPointDirection = ship.getPointDirection();
+    private double dRadians = myPointDirection*(Math.PI/180);
+    myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
+    myDirectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
+  }
+  public void show()
+  {
+    fill(255, 0, 0);
+    ellipse(myCenterX, myCenterY, 10, 7);
+  }
 }
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
