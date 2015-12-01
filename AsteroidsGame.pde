@@ -6,41 +6,42 @@ int rockNum = 5; //start with XX num of asteroids
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
 ArrayList <Asteroids> astroBelt = new ArrayList <Asteroids>(); //arrayList
-
-Bullet bullet = new Bullet();
+ArrayList <Bullet> bullets = new ArrayList <Bullet>(); 
 
 public void setup() 
 {
   size(screenSize, screenSize);
   background(0);
-  for(int i = 0; i < stars.length; i++)
+  for(int i = 0; i < stars.length; i++) //make stars
   {
     stars[i] = new Star();
   }
-  for(int i = 0; i < rockNum; i++) //for asteroids arrayList
+  for(int i = 0; i < rockNum; i++) //add asteroids for arrayList
   {
     astroBelt.add(new Asteroids());
   }
 }
+
 public void draw() 
 {
   background(0);
-  for(int i = 0; i < stars.length; i++)
+  for(int i = 0; i < stars.length; i++) //show & move ship
   {
     stars[i].show();
   }
   ship.show();
   ship.move();
-  for(int i = 0; i < astroBelt.size(); i++) //for asteroids arrayList
+  for(int i = 0; i < astroBelt.size(); i++) //show & move asteroids for arrayList
   {
-    Asteroids belt = astroBelt.get(i);
+    Asteroids belt = astroBelt.get(i); //get index
     belt.show();
     belt.move();
   }
   for(int i = 0; i < astroBelt.size(); i++) //remove asteroid
   {
     double newX, newY;
-    float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY());
+    float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY()); 
+    //^^ get asteroid with index 'i' then grt asteroid i's x and y
     if((int)(Math.random()*1) == 0) //random coords for new asteroid
     {
       newX = 0;
@@ -59,6 +60,7 @@ public void draw()
     }
   }
 }
+
 public void keyTyped()
 {
   if(key == 'a') //rotate left
@@ -96,6 +98,13 @@ public void keyTyped()
   if(key == 't' && twinkle == true)
   {
     twinkle = false;
+  }
+  if(key == 'e')
+  {
+    bullets.add(new Bullet());
+    Bullet load = bullets.get(bullets.size()-1); //get index of recented add
+    load.show();
+    load.move();
   }
 }
 
@@ -229,20 +238,36 @@ class Asteroids extends Floater
 
 class Bullet extends Floater
 {
+  private double dRadians;
   public void Bullet(SpaceShip ship)
   {
     myCenterX = ship.getX();
     myCenterY = ship.getY();
     myPointDirection = ship.getPointDirection();
-    private double dRadians = myPointDirection*(Math.PI/180);
+    dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
     myDirectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
   }
   public void show()
   {
     fill(255, 0, 0);
-    ellipse(myCenterX, myCenterY, 10, 7);
+    ellipse((float)myCenterX, (float)myCenterY, 10, 7);
   }
+  public void move()
+  {
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY; 
+  }
+  public void setX(int x){myCenterX = x;} 
+  public int getX(){return (int) myCenterX;}   
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int) myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}   
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection = degrees;}   
+  public double getPointDirection(){return myPointDirection;}
 }
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
