@@ -59,6 +59,12 @@ public void draw()
       astroBelt.remove(i);
     }
   }
+  for(int i = 0; i < bullets.size(); i ++) //show & move bullets
+  {
+    Bullet load = bullets.get(i); //get index
+    load.show();
+    load.move();
+  }
 }
 
 public void keyTyped()
@@ -102,12 +108,8 @@ public void keyTyped()
   if(key == 'e')
   {
     bullets.add(new Bullet());
-    Bullet load = bullets.get(bullets.size()-1); //get index of recented add
-    load.show();
-    load.move();
   }
 }
-
 class Star
 {
   private double myX, myY;
@@ -251,7 +253,9 @@ class Bullet extends Floater
   public void show()
   {
     fill(255, 0, 0);
-    ellipse((float)myCenterX, (float)myCenterY, 10, 7);
+    stroke(255, 0, 0);
+    ellipse((float)myCenterX, (float)myCenterY, 20, 20); //HERE!!!!!!!!
+    //ellipse(myCenterX, myCenterX, 20, 20);
   }
   public void move()
   {
