@@ -41,7 +41,7 @@ public void draw()
   {
     double newX, newY;
     float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY()); 
-    //^^ get asteroid with index 'i' then grt asteroid i's x and y
+    //^^ get asteroid with index 'i' then get asteroid i's x and y
     if((int)(Math.random()*1) == 0) //random coords for new asteroid
     {
       newX = 0;
@@ -59,11 +59,16 @@ public void draw()
       astroBelt.remove(i);
     }
   }
-  for(int i = 0; i < bullets.size(); i ++) //show & move bullets
+  // for(int i = 0; i < bullets.size(); i ++) //show & move bullets
+  // {
+  //   Bullet load = bullets.get(i); //get index
+  //   load.show();
+  //   load.move();
+  // }
+  for(Bullet temp : bullets)
   {
-    Bullet load = bullets.get(i); //get index
-    load.show();
-    load.move();
+    temp.move();
+    temp.show();
   }
 }
 
@@ -105,7 +110,7 @@ public void keyTyped()
   {
     twinkle = false;
   }
-  if(key == 'e')
+  if(key == 'b')
   {
     bullets.add(new Bullet());
   }
@@ -254,14 +259,14 @@ class Bullet extends Floater
   {
     fill(255, 0, 0);
     stroke(255, 0, 0);
-    ellipse((float)myCenterX, (float)myCenterY, 20, 20); //HERE!!!!!!!!
-    //ellipse(myCenterX, myCenterX, 20, 20);
+    ellipse((float)myCenterX, (float)myCenterY, 20, 20);
   }
   public void move()
   {
     myCenterX += myDirectionX;    
     myCenterY += myDirectionY; 
   }
+  
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
   public void setY(int y){myCenterY = y;}   
