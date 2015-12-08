@@ -245,11 +245,14 @@ class Asteroids extends Floater
 
 class Bullet extends Floater
 {
+  private double x, y;
   private double dRadians;
   public void Bullet(SpaceShip ship)
   {
     myCenterX = ship.getX();
     myCenterY = ship.getY();
+    x = 0;
+    y = 0;
     myPointDirection = ship.getPointDirection();
     dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
@@ -259,12 +262,14 @@ class Bullet extends Floater
   {
     fill(255, 0, 0);
     stroke(255, 0, 0);
-    ellipse((float)myCenterX, (float)myCenterY, 20, 20);
+    ellipse(ship.getX() + (float)x, ship.getY() + (float)y, 20, 20);
   }
   public void move()
   {
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY; 
+    x += myPointDirection--;    
+    y += myPointDirection++; 
+    //x++;
+    //y++;
   }
   
   public void setX(int x){myCenterX = x;} 
