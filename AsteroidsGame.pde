@@ -25,9 +25,15 @@ public void setup()
 public void draw() 
 {
   background(0);
-  for(int i = 0; i < stars.length; i++) //show & move ship
+  for(int i = 0; i < stars.length; i++) //show stars
   {
     stars[i].show();
+  }
+  for(Bullet temp : bullets) //show and move each bullet
+  {
+    temp.move();
+    temp.accelerate(0.1);
+    temp.show();
   }
   ship.show();
   ship.move();
@@ -58,17 +64,6 @@ public void draw()
       //astroBelt.add(new Asteroids()); //add new asteroid as another is removed
       astroBelt.remove(i);
     }
-  }
-  // for(int i = 0; i < bullets.size(); i ++) //show & move bullets
-  // {
-  //   Bullet load = bullets.get(i); //get index
-  //   load.show();
-  //   load.move();
-  // }
-  for(Bullet temp : bullets)
-  {
-    temp.move();
-    temp.show();
   }
 }
 
@@ -249,28 +244,34 @@ class Bullet extends Floater
   private double dRadians;
   public void Bullet(SpaceShip ship)
   {
-    myCenterX = ship.getX();
-    myCenterY = ship.getY();
+    myCenterX = ship.getX(); //initilizing this makes the function not work
+    myCenterY = ship.getY(); //initilizing this makes the function not work
     x = 0;
     y = 0;
-    myPointDirection = ship.getPointDirection();
+    myPointDirection = ship.getPointDirection(); //initilizing this makes the function not work
     dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
     myDirectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
   }
+  public void accelerate (double dAmount)   
+  {          
+    //convert the current direction the floater is pointing to radians    
+    double dRadians = ship.getPointDirection()*(Math.PI/180);     
+    //change coordinates of direction of travel    
+    myDirectionX += ((dAmount) * Math.cos(dRadians));    
+    myDirectionY += ((dAmount) * Math.sin(dRadians));       
+  }   
   public void show()
   {
-    fill(255, 0, 0);
-    stroke(255, 0, 0);
-    ellipse(ship.getX() + (float)x, ship.getY() + (float)y, 20, 20);
+    fill(224, 224, 224);
+    stroke(224, 224, 224);
+    ellipse(ship.getX() + (float)x, ship.getY() + (float)y, 4, 4);
   }
-  public void move()
-  {
-    x += myPointDirection--;    
-    y += myPointDirection++; 
-    //x++;
-    //y++;
-  }
+   public void move()
+   {     
+    x += myDirectionX;    
+    y += myDirectionY;     
+   }
   
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
