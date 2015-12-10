@@ -43,7 +43,7 @@ public void draw()
     belt.show();
     belt.move();
   }
-  for(int i = 0; i < astroBelt.size(); i++) //remove asteroid
+  for(int i = 0; i < astroBelt.size(); i++) //remove asteroid if it hits the ship
   {
     double newX, newY;
     float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY()); 
@@ -65,6 +65,24 @@ public void draw()
       astroBelt.remove(i);
     }
   }
+  // for(int p = 0; p < bullets.size(); p++) //remove asteroid if it is hit by a bullet
+  // {
+  //   for(int o = 0; o < astroBelt.size(); o++) //remove asteroid if it is hit by a bullet
+  //   {
+      float d2 = dist(bullets.get().gettingX, bullets.get().getX(), astroBelt.get().getX(), astroBelt.get().getY());
+       for(Bullet temp : bullets)
+       {
+         for(Asteroids temp2 : astroBelt)
+         {
+          if(d2 < 20)
+          { 
+            bullets.remove();
+            astroBelt.remove();
+          }
+         }
+       }
+  //   }
+  // }
 }
 
 public void keyTyped()
@@ -273,6 +291,9 @@ class Bullet extends Floater
     y += myDirectionY;     
    }
   
+  public void getx(){return (int) x;}
+  public void gety(){return (int) y;}
+
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
   public void setY(int y){myCenterY = y;}   
