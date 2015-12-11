@@ -65,22 +65,35 @@ public void draw()
       astroBelt.remove(i);
     }
   }
-  // for(int p = 0; p < bullets.size(); p++) //remove asteroid if it is hit by a bullet
-  // {
-  //   for(int o = 0; o < astroBelt.size(); o++) //remove asteroid if it is hit by a bullet
-  //   {
-      float d2 = dist(bullets.get().gettingX, bullets.get().getX(), astroBelt.get().getX(), astroBelt.get().getY());
+   //for(int p = 0; p < bullets.size(); p++) //remove asteroid if it is hit by a bullet
+   //{
+     
+  
        for(Bullet temp : bullets)
        {
-         for(Asteroids temp2 : astroBelt)
-         {
+       for(int o = astroBelt.size()-1; o >= 0; o--)
+       //for(int o = 0; o < astroBelt.size(); o++) //remove asteroid if it is hit by a bullet
+     {
+        float d2 = dist(temp.getX(), temp.getY(), astroBelt.get(o).getX(), astroBelt.get(o).getY());
+         // for(Asteroids temp2 : astroBelt)
+         // {
           if(d2 < 20)
           { 
-            bullets.remove();
-            astroBelt.remove();
+            //temp.remove();
+            astroBelt.remove(o);
           }
          }
        }
+     //}
+   //}
+  //  for(int i = 0; i < astroBelt.size(); i++) //remove asteroid if it hits the ship
+  // {
+  //   double newX, newY;
+  //   float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), bullets.getX(), bullets.getY()); 
+  //   //^^ get asteroid with index 'i' then get asteroid i's x and y
+  //   if(d < 20) 
+  //   {
+  //     astroBelt.remove(i);
   //   }
   // }
 }
@@ -290,9 +303,6 @@ class Bullet extends Floater
     x += myDirectionX;    
     y += myDirectionY;     
    }
-  
-  public void getx(){return (int) x;}
-  public void gety(){return (int) y;}
 
   public void setX(int x){myCenterX = x;} 
   public int getX(){return (int) myCenterX;}   
