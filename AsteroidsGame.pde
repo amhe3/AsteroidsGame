@@ -1,7 +1,7 @@
 int numStars = (int) (Math.random()*100)+100;
 boolean twinkle = false;
 int screenSize = 500;
-int rockNum = 5; //start with XX num of asteroids
+int rockNum = 5; //start with X num of asteroids
 
 SpaceShip ship = new SpaceShip();
 Star[] stars = new Star[numStars];
@@ -31,71 +31,41 @@ public void draw()
   }
   for(Bullet temp : bullets) //show and move each bullet
   {
-    temp.move();
-    temp.accelerate(0.1);
-    temp.show();
+   temp.move();
+   temp.accelerate(0.1);
+   temp.show();
   }
   ship.show();
   ship.move();
   for(int i = 0; i < astroBelt.size(); i++) //show & move asteroids for arrayList
   {
-    Asteroids belt = astroBelt.get(i); //get index
-    belt.show();
-    belt.move();
+    astroBelt.get(i).show();
+    astroBelt.get(i).move();
+    for(int n = 0; n < bullets.size(); n++) //loop to check for collision
+    {
+      float d2 = dist((float)astroBelt.get(i).getX(), (float)astroBelt.get(i).getY(), (float)bullets.get(n).getX(), (float)bullets.get(n).getY());
+      if(d2 < 20)
+      {
+        astroBelt.remove(i);
+        bullets.remove(n);
+      }
+    }   
   }
   for(int i = 0; i < astroBelt.size(); i++) //remove asteroid if it hits the ship
   {
-    double newX, newY;
     float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), ship.getX(), ship.getY()); 
     //^^ get asteroid with index 'i' then get asteroid i's x and y
-    if((int)(Math.random()*1) == 0) //random coords for new asteroid
-    {
-      newX = 0;
-      newY = Math.random()*screenSize;
-    } else
-    {
-      newX = Math.random()*screenSize;
-      newY = 0;
-    }
     if(d < 20) 
     {
-      astroBelt.get(i).setX((int)newX);
-      astroBelt.get(i).setY((int)newY);
-      //astroBelt.add(new Asteroids()); //add new asteroid as another is removed
       astroBelt.remove(i);
     }
   }
-   //for(int p = 0; p < bullets.size(); p++) //remove asteroid if it is hit by a bullet
-   //{
-     
-  
-       for(Bullet temp : bullets)
-       {
-       for(int o = astroBelt.size()-1; o >= 0; o--)
-       //for(int o = 0; o < astroBelt.size(); o++) //remove asteroid if it is hit by a bullet
-     {
-        float d2 = dist(temp.getX(), temp.getY(), astroBelt.get(o).getX(), astroBelt.get(o).getY());
-         // for(Asteroids temp2 : astroBelt)
-         // {
-          if(d2 < 20)
-          { 
-            //temp.remove();
-            astroBelt.remove(o);
-          }
-         }
-       }
-     //}
-   //}
-  //  for(int i = 0; i < astroBelt.size(); i++) //remove asteroid if it hits the ship
-  // {
-  //   double newX, newY;
-  //   float d = dist(astroBelt.get(i).getX(), astroBelt.get(i).getY(), bullets.getX(), bullets.getY()); 
-  //   //^^ get asteroid with index 'i' then get asteroid i's x and y
-  //   if(d < 20) 
-  //   {
-  //     astroBelt.remove(i);
-  //   }
-  // }
+  if(astroBelt.size() == 3)
+  {
+   astroBelt.add(new Asteroids());
+   astroBelt.get(astroBelt.size()-1).show();
+   astroBelt.get(astroBelt.size()-1).move();
+  }
 }
 
 public void keyTyped()
@@ -138,7 +108,7 @@ public void keyTyped()
   }
   if(key == 'b')
   {
-    bullets.add(new Bullet());
+    bullets.add(new Bullet(ship));
   }
 }
 class Star
@@ -271,37 +241,40 @@ class Asteroids extends Floater
 
 class Bullet extends Floater
 {
-  private double x, y;
+  //private double x, y;
   private double dRadians;
-  public void Bullet(SpaceShip ship)
+  public Bullet(SpaceShip ship)
   {
     myCenterX = ship.getX(); //initilizing this makes the function not work
     myCenterY = ship.getY(); //initilizing this makes the function not work
-    x = 0;
-    y = 0;
+    //x = 0;
+    //y = 0;
     myPointDirection = ship.getPointDirection(); //initilizing this makes the function not work
     dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
     myDirectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
   }
-  public void accelerate (double dAmount)   
-  {          
-    //convert the current direction the floater is pointing to radians    
-    double dRadians = ship.getPointDirection()*(Math.PI/180);     
-    //change coordinates of direction of travel    
-    myDirectionX += ((dAmount) * Math.cos(dRadians));    
-    myDirectionY += ((dAmount) * Math.sin(dRadians));       
-  }   
+  //public void accelerate (double dAmount)   
+  //{          
+  //  //convert the current direction the floater is pointing to radians    
+  //  double dRadians = ship.getPointDirection()*(Math.PI/180);     
+  //  //change coordinates of direction of travel    
+  //  myDirectionX += ((dAmount) * Math.cos(dRadians));    
+  //  myDirectionY += ((dAmount) * Math.sin(dRadians));       
+  //}   
   public void show()
   {
     fill(224, 224, 224);
     stroke(224, 224, 224);
-    ellipse(ship.getX() + (float)x, ship.getY() + (float)y, 4, 4);
+    //ellipse(ship.getX() + (float)x, ship.getY() + (float)y, 4, 4);
+    ellipse((float)myCenterX, (float)myCenterY, 4, 4);
   }
    public void move()
    {     
-    x += myDirectionX;    
-    y += myDirectionY;     
+    //x += myDirectionX;    
+    //y += myDirectionY;
+    myCenterX += myDirectionX;
+    myCenterY += myDirectionY;
    }
 
   public void setX(int x){myCenterX = x;} 
